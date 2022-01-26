@@ -3,6 +3,7 @@ const player = {
   chips: 150,
 };
 
+//* Global Variables:
 let totalCash = player.chips;
 let cards = [];
 let sum = 0;
@@ -18,6 +19,8 @@ let playerEl = document.getElementById('player-el');
 let countBlackJack = document.getElementById('countBlackJack');
 let countStart = document.getElementById('countStart');
 let accuracyEl = document.getElementById('accuracy-el');
+
+//* Set a starting cash to $150
 playerEl.textContent = player.name + ': ' + totalCash + '$';
 
 function getRandomCard() {
@@ -33,9 +36,9 @@ function getRandomCard() {
 
 function startGame() {
   if (!isAlive && totalCash) {
-    isAlive = true;
+    isAlive = true; //* To prevent starting a started game.
     starts++;
-    totalCash -= 10;
+    totalCash -= 10; //* Discounted every new round.
     renderCalc();
     countStart.textContent = 'Starts: ' + starts;
     let firstCard = getRandomCard();
@@ -46,6 +49,7 @@ function startGame() {
   }
 }
 
+//* Track the game status:
 function renderGame() {
   cardsEl.textContent = 'Cards: ';
   for (let i = 0; i < cards.length; i++) {
@@ -78,20 +82,32 @@ function newCard() {
   }
 }
 
+//* To calculate luck percentage:
 function renderCalc() {
   playerEl.textContent = player.name + ': ' + totalCash + '$';
   accuracyEl.textContent =
     'Accuracy: ' + Math.floor((blackJacks / starts) * 100) + '%';
 }
 
+//* Track BlackJacks:
 function renderBlackJacks() {
   countBlackJack.textContent = 'BlackJacks: ' + blackJacks;
 }
 
+//* Reset to start a new game from the very 1st beginning:
 function reset() {
+  sum = 0;
+  starts = 0;
+  blackJacks = 0;
+  accuracy = 0;
+
   cardsEl.textContent = 'Cards: ';
   messageEl.textContent = 'Want to play a round?';
   sumEl.textContent = 'Sum: ';
+  countBlackJack.textContent = 'BlackJacks: ';
+  countStart.textContent = 'Starts: ';
+  accuracyEl.textContent = 'Accuracy: ';
+  playerEl.textContent = player.name + ': ' + totalCash + '$';
 }
 
 function newGame() {
@@ -99,7 +115,5 @@ function newGame() {
     blackJacks > 2 ? blackJacks-- : blackJacks;
     totalCash += 150;
     reset();
-    renderBlackJacks();
-    renderCalc();
   }
 }
