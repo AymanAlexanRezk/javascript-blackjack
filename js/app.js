@@ -18,7 +18,7 @@ let playerEl = document.getElementById('player-el');
 let countBlackJack = document.getElementById('countBlackJack');
 let countStart = document.getElementById('countStart');
 let accuracyEl = document.getElementById('accuracy');
-renderTotalCash();
+playerEl.textContent = player.name + ': ' + totalCash + '$';
 
 function getRandomCard() {
   let randNum = Math.floor(Math.random() * 13) + 1;
